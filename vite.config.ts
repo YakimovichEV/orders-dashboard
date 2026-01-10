@@ -1,6 +1,7 @@
-import react from '@vitejs/plugin-react-swc';
 import { dirname, resolve } from 'path';
 import { fileURLToPath } from 'url';
+
+import react from '@vitejs/plugin-react-swc';
 import { defineConfig } from 'vite';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -36,11 +37,13 @@ export default defineConfig({
       maxParallelFileOps: 8,
       output: {
         assetFileNames: assetInfo => {
-          if (/\.(png|jpe?g|svg|gif|tiff|bmp|ico)$/i.test(assetInfo.name)) {
+          const name = assetInfo.name ?? '';
+
+          if (/\.(png|jpe?g|svg|gif|tiff|bmp|ico)$/i.test(name)) {
             return `images/[name]-[hash][extname]`;
           }
 
-          if (/\.(woff2?|eot|ttf|otf)$/i.test(assetInfo.name)) {
+          if (/\.(woff2?|eot|ttf|otf)$/i.test(name)) {
             return `fonts/[name]-[hash][extname]`;
           }
 
@@ -60,22 +63,5 @@ export default defineConfig({
   preview: {
     port: 4173,
     open: true,
-  },
-  test: {
-    globals: true,
-    environment: 'jsdom',
-    setupFiles: ['./src/__tests__/setup.ts'],
-    css: true,
-    coverage: {
-      provider: 'v8',
-      reporter: ['text', 'json', 'html'],
-      exclude: [
-        'node_modules/',
-        'src/__tests__/',
-        '**/*.d.ts',
-        '**/*.config.*',
-        '**/mockData.ts',
-      ],
-    },
   },
 });
