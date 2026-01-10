@@ -1,0 +1,75 @@
+{
+  "name": "orders-dashboard",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "engines": {
+    "npm": ">=10.0.0",
+    "node": ">=20.0.0"
+  },
+  "scripts": {
+    "dev": "vite",
+    "start": "vite",
+    "build": "tsc -b && vite build",
+    "build:dev": "vite build --mode development",
+    "build:stage": "vite build --mode staging",
+    "build:prod": "vite build --mode production",
+    "preview": "vite preview",
+    "test": "vitest",
+    "lint": "eslint . --cache",
+    "lint:fix": "eslint . --fix --cache",
+    "format": "prettier --write \"src/**/*.{js,ts,jsx,tsx,json,md}\"",
+    "format:check": "prettier --check \"src/**/*.{js,ts,jsx,tsx,json,md}\"",
+    "clean": "rm -rf build node_modules/.vite",
+    "check-all": "npm run lint && npm run format:check",
+    "fix-all": "npm run lint:fix && npm run format",
+    "prepare": "husky",
+    "pre-push": "npm run build"
+  },
+  "lint-staged": {
+    "src/**/*.{js,ts,jsx,tsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ]
+  },
+  "dependencies": {
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.1",
+    "@faker-js/faker": "^10.2.0",
+    "@hookform/resolvers": "^5.2.2",
+    "@mui/icons-material": "^7.3.7",
+    "@mui/material": "^7.3.7",
+    "@tanstack/react-query": "^5.90.16",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "react-hook-form": "^7.70.0",
+    "zod": "^4.3.5"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.39.1",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.1",
+    "@testing-library/user-event": "^14.6.1",
+    "@types/node": "^24.10.1",
+    "@types/react": "^19.2.5",
+    "@types/react-dom": "^19.2.3",
+    "@typescript-eslint/eslint-plugin": "^8.34.0",
+    "@typescript-eslint/parser": "^8.34.0",
+    "@vitejs/plugin-react-swc": "^4.2.2",
+    "eslint": "^9.39.1",
+    "eslint-config-prettier": "^10.1.5",
+    "eslint-plugin-import": "^2.32.0",
+    "eslint-plugin-react": "^7.37.5",
+    "eslint-plugin-react-hooks": "^7.0.1",
+    "eslint-plugin-react-refresh": "^0.4.24",
+    "globals": "^16.5.0",
+    "husky": "^9.1.7",
+    "jsdom": "^27.4.0",
+    "lint-staged": "^16.1.2",
+    "prettier": "^3.6.2",
+    "typescript": "~5.9.3",
+    "typescript-eslint": "^8.46.4",
+    "vite": "^7.2.4",
+    "vitest": "^2.1.8"
+  }
+}
