@@ -66,7 +66,7 @@ export default [
           ignoreRestSiblings: true,
         },
       ],
-      '@typescript-eslint/no-explicit-any': 'warn',
+      '@typescript-eslint/no-explicit-any': 'error',
       '@typescript-eslint/no-empty-object-type': 'warn',
       'react/no-unknown-property': [
         'error',

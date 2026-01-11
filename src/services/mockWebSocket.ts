@@ -37,15 +37,12 @@ export class MockWebSocket {
     this.updateStatus('connected');
     this.reconnectAttempt = 0;
     this.startEventLoop();
-
-    console.log('[MockWebSocket] Connected');
   }
 
   public disconnect(): void {
     this.isManualDisconnect = true;
     this.cleanup();
     this.updateStatus('disconnected');
-    console.log('[MockWebSocket] Disconnected');
   }
 
   private simulateConnectionDrop(): void {
@@ -53,7 +50,6 @@ export class MockWebSocket {
 
     this.cleanup();
     this.updateStatus('disconnected');
-    console.log('[MockWebSocket] Connection dropped');
 
     this.attemptReconnect();
   }
@@ -70,10 +66,6 @@ export class MockWebSocket {
     );
 
     this.reconnectAttempt++;
-
-    console.log(
-      `[MockWebSocket] Reconnecting in ${delay}ms (attempt ${this.reconnectAttempt})...`
-    );
 
     this.reconnectTimeout = setTimeout(() => {
       this.connect();
@@ -124,7 +116,6 @@ export class MockWebSocket {
       timestamp: new Date().toISOString(),
     };
 
-    console.log('[MockWebSocket] New order:', newOrder.id);
     this.notifyHandlers(event);
   }
 
@@ -145,13 +136,10 @@ export class MockWebSocket {
       timestamp: new Date().toISOString(),
     };
 
-    console.log(
-      `[MockWebSocket] Order update: ${randomOrder.id} -> ${newStatus}`
-    );
     this.notifyHandlers(event);
   }
 
-  public on(handler: WebSocketEventHandler): () => void {
+  public on(handler: WebSocketEventHandler): VoidFunction {
     this.eventHandlers.add(handler);
 
     return () => {
@@ -159,7 +147,7 @@ export class MockWebSocket {
     };
   }
 
-  public onStatusChange(handler: StatusChangeHandler): () => void {
+  public onStatusChange(handler: StatusChangeHandler): VoidFunction {
     this.statusHandlers.add(handler);
 
     return () => {
@@ -198,7 +186,6 @@ export class MockWebSocket {
     this.disconnect();
     this.eventHandlers.clear();
     this.statusHandlers.clear();
-    console.log('[MockWebSocket] Destroyed');
   }
 }
 
