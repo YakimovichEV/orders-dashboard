@@ -8,12 +8,13 @@ import { useState } from 'react';
 import { ConnectionStatus } from '@/components/ConnectionStatus/ConnectionStatus';
 import { OrderDetailsModal } from '@/components/OrderDetailsModal/OrderDetailsModal';
 import { OrdersTable } from '@/components/OrdersTable/OrdersTable';
+import { ThemeToggle } from '@/components/ThemeToggle/ThemeToggle';
 import { useWebSocket } from '@/features/orders/hooks/useWebSocket';
 import type { Order } from '@/types/order';
 
 function App() {
   const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
-  const [modalOpen, setModalOpen] = useState(false);
+  const [modalOpen, setModalOpen] = useState<boolean>(false);
   const { status } = useWebSocket();
 
   const handleOrderClick = (order: Order) => {
@@ -31,10 +32,17 @@ function App() {
       <AppBar
         elevation={0}
         position="static"
-        sx={{
-          bgcolor: 'white',
-          boxShadow: '0 2px 8px rgba(0, 0, 0, 0.08)',
-        }}
+        sx={theme => ({
+          bgcolor: 'background.paper',
+          boxShadow:
+            theme.palette.mode === 'light'
+              ? '0 2px 8px rgba(0, 0, 0, 0.08)'
+              : '0 2px 8px rgba(0, 0, 0, 0.5)',
+          borderBottom:
+            theme.palette.mode === 'dark'
+              ? `1px solid ${theme.palette.divider}`
+              : 'none',
+        })}
       >
         <Toolbar sx={{ py: 1 }}>
           <Box
@@ -68,7 +76,10 @@ function App() {
               </Typography>
             </Box>
           </Box>
-          <ConnectionStatus status={status} />
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+            <ThemeToggle />
+            <ConnectionStatus status={status} />
+          </Box>
         </Toolbar>
       </AppBar>
 

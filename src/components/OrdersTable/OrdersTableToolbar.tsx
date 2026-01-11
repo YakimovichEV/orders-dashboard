@@ -53,9 +53,9 @@ export function OrdersTableToolbar({
       <Box sx={{ display: 'flex', gap: 2, flex: 1, flexWrap: 'wrap' }}>
         <TextField
           label="Search orders..."
-          placeholder="Search by ID, customer name, or email"
+          placeholder="Search by ID or customer name"
           size="small"
-          sx={{ minWidth: 250, flex: 1 }}
+          sx={{ maxWidth: 400, flex: 1 }}
           value={searchQuery}
           onChange={e => onSearchChange(e.target.value)}
         />

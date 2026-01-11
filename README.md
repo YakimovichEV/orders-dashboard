@@ -9,9 +9,10 @@ A modern, real-time e-commerce Orders Dashboard built with React, TypeScript, an
 - **Pagination**: Customizable page sizes (10, 25, 50 items per page)
 - **Order Management**: View detailed order information and update order status
 - **Connection Status**: Visual indicator showing WebSocket connection state
+- **Dark Mode**: Toggle between light and dark themes with persistent preference
 - **Responsive Design**: Works seamlessly on desktop and tablet devices
 - **Type Safety**: Full TypeScript strict mode with no `any` types
-- **Test Coverage**: 19 comprehensive tests covering components, utilities, and hooks
+- **Test Coverage**: 32 comprehensive tests covering components, integration, hooks, and utilities
 
 ## Tech Stack
 
@@ -159,28 +160,62 @@ The mock API simulates realistic network delays (100-300ms) and provides:
 - Individual order fetching
 - Order status updates
 
+### Dark Mode
+
+The application supports light and dark themes with automatic persistence:
+
+- **Theme Context**: React Context API manages theme state across the app
+- **LocalStorage Persistence**: User preference is saved and restored on app load
+- **Dynamic Theming**: MUI theme dynamically recreated based on current mode
+- **Custom Colors**: Tailored color palettes for both light and dark modes
+- **Theme Toggle**: Accessible toggle button in header with color-coded icons
+
 ## Testing
 
-The project includes 19 comprehensive tests:
+The project includes **32 comprehensive tests** across 5 test files, ensuring robust functionality and reliability:
 
 ### Component Tests (4 tests)
+`src/components/OrdersTable/__tests__/OrdersTable.test.tsx`
+- OrdersTable renders correctly with mock data
+- Loading state displays progress indicator
+- Empty state shows "No orders found" message
+- Error state displays error message with retry option
 
-- OrdersTable rendering with data
-- Loading state display
-- Empty state handling
-- Error state display
+### Integration Tests (5 tests)
+`src/components/OrdersTable/__tests__/OrdersTable.integration.test.tsx`
+- Status filter integration with API calls
+- Debounced search functionality (300ms delay)
+- Column header sorting with direction toggle
+- Pagination controls update correctly
+- Combined filtering and searching workflow
+
+### Hook/Logic Tests (8 tests)
+`src/features/orders/hooks/__tests__/useWebSocket.test.tsx`
+- WebSocket initialization with correct status
+- Event subscription on mount
+- **Reconnection logic** (connected → disconnected → reconnecting → connected)
+- New order event handling with cache invalidation
+- Order update event handling
+- Conditional update logic validation
+- Query invalidation on all event types
+- Proper cleanup on unmount
 
 ### Utility Tests (12 tests)
-
-- Currency formatting (USD, zero values, large numbers)
+`src/utils/__tests__/formatters.test.ts`
+- Currency formatting (USD, EUR, GBP)
+- Zero and negative value handling
+- Large number formatting
 - Date formatting (short and long formats)
-- Relative time formatting (minutes, hours, days ago)
+- Invalid date handling
+- Relative time formatting (minutes, hours, days, weeks ago)
 
 ### Hook Tests (3 tests)
+`src/hooks/__tests__/useDebounce.test.ts`
+- Initial value handling
+- Debounced value updates
+- Different data type support
 
-- useDebounce initial value
-- Debounced value changes
-- Different value types
+All tests use **Vitest** and **React Testing Library** with realistic mocks and user interaction simulations.
 
 ## Performance Optimizations
 

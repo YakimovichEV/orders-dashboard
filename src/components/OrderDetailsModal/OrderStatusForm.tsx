@@ -75,7 +75,12 @@ export function OrderStatusForm({
       />
 
       <Box sx={{ mt: 3, display: 'flex', gap: 2, justifyContent: 'flex-end' }}>
-        <Button disabled={isLoading} onClick={onCancel}>
+        <Button
+          color="inherit"
+          disabled={isLoading}
+          variant="outlined"
+          onClick={onCancel}
+        >
           Cancel
         </Button>
         <Button

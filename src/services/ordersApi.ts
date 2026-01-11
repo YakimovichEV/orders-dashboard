@@ -31,8 +31,7 @@ function filterOrders(orders: Order[], filters: OrderFilters): Order[] {
     filtered = filtered.filter(
       order =>
         order.id.toLowerCase().includes(query) ||
-        order.customerName.toLowerCase().includes(query) ||
-        order.customerEmail.toLowerCase().includes(query)
+        order.customerName.toLowerCase().includes(query)
     );
   }
 
